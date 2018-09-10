@@ -1,6 +1,7 @@
 export {
     start,
-    TextChange
+    TextChange , 
+    postText
 } from './editor';
 export {
     auth,
