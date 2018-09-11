@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
+import { Input } from 'antd';
 import * as actionCreators from '../store/actions/index';
 import axios from 'axios';
 
@@ -56,11 +57,14 @@ class Editor  extends Component {
       <div> 
          <h1>{this.state.value}</h1>
       <form>
-            <textarea  
-              placeholder="Start typing " 
-              onChange={this.handleChange} 
-             value={this.state.value}  
-             cols={40} rows={10} />
+             <Input.TextArea
+              size="large"
+              value={this.state.value}
+              placeholder="start typing now "
+              onChange={this.handleChange}
+              rows={8}
+              cols={40}
+             /> 
       </form>
       </div>
     );
