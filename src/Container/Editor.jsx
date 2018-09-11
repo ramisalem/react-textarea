@@ -15,47 +15,40 @@ class Editor  extends Component {
   }
 
   handleChange(event) {
+     //console.log(event.target.value);
+     this.props.onChangeText(event.target.value);
      this.setState({
        value: event.target.value 
      });
-    //  this.props.onChangeText(event.target.value);
-    //  let mystate = this.props.text ;
-    //   let  bodyFormData = new FormData();
-    //   bodyFormData.set('the_post' ,  "لاكن" )
-    // axios({
-    //   method: 'post',
-    //   url: 'http://test.dhad.me/spellcheck/postajax/',
-    //   data: bodyFormData,
-    //   config: { headers: {'Content-Type': 'multipart/form-data' }}
-    //   })
-    //   .then(function (response) {
-    //       //handle success
-    //       console.log(response);
-    //       console.log('full path ' , response.data.spellErrors)
-    //   })
-    //   .catch(function (response) {
-    //       //handle error
-    //       console.log(response);
-    //   });
+     let mystate = this.props.text ;
+      let  bodyFormData = new FormData();
+      bodyFormData.set('the_post' ,  "لاكن" )
+    axios({
+      method: 'post',
+      url: 'http://test.dhad.me/spellcheck/postajax/',
+      data: bodyFormData,
+      config: { headers: {'Content-Type': 'multipart/form-data' }}
+      })
+      .then(function (response) {
+          //handle success
+          //console.log(response);
+          console.log('full path ' , response.data.raw_correctionsList)
+      })
+      .catch(function (response) {
+          //handle error
+          console.log(response);
+      });
      
   }
   
   componentWillMount() {
      //console.log(this.props.onChangeText);
      this.props.onStart();
-    // this.props.onPostText(this.props.text);
+     this.props.onChangeText(this.state.value);
   }
   componentDidMount() {
 
-  axios.get('https://www.googleapis.com/books/v1/volumes?q=search+harry')
-    .then(function (response) {
-        //handle success
-        console.log(response);
-    })
-    .catch(function (response) {
-        //handle error
-        console.log(response);
-    });
+   
   }
   
   render() {
