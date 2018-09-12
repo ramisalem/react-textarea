@@ -24,12 +24,7 @@ export const postTextSuccess = (value) => {
     };
 };
 
-export const postTextFail = ( error ) => {
-    return {
-        type: actionTypes.POST_TEXT_FAIL,
-        error: error
-    };
-}
+
 
 export const fetchErrorWords = () => {
     return {
@@ -57,16 +52,12 @@ export const ErorrList = (text) => {
         })
         .then(res => {
             console.log(res.data.raw_errList);
-            const list = [];
-            for (let key in res.data.raw_errList ) {
-                list.push(
-                    {
-                     ...res.data.raw_errList   
-                    }
-                );
-            }
+            const list = res.data.raw_errList ;
             dispatch(FetchErrorListSuccess(list));
             console.log(" error list " , list);
+            let  spellcheck = text.split(' ').filter((x) => list.includes(x));
+            console.log( 'check if it ' , spellcheck );
+            
         })
         .catch(function (response) {
             //handle error
