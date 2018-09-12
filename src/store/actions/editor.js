@@ -1,4 +1,5 @@
 import * as actionTypes from './actionTypes';
+import axios from 'axios';
 
 
 export const start = (  ) => {
@@ -14,11 +15,7 @@ export const TextChange = (value) => {
     };
 };
 
-export const postTextStart = () => {
-    return {
-        type: actionTypes.POST_TEXT_SART
-    };
-};
+
 
 export const postTextSuccess = (value) => {
     return {
@@ -33,25 +30,48 @@ export const postTextFail = ( error ) => {
         error: error
     };
 }
-// export const postText = (text) => {
-//     return dispatch => {
-//         dispatch(postTextStart());
-//         const base = "http://test.dhad.me/spellcheck/postajax/?the_post=";
-//         axios.post(  base + "نص ")
-//             .then( res => {
-//                 // const result = [];
-//                 // for ( let key in res.data ) {
-//                 //     result.push( {
-//                 //         ...res.data[key],
-//                 //         id: key
-//                 //     } );
-//                 // }
-//                  dispatch(postTextSuccess(...res));
-//                 console.log(response.data);
-                
-//             } )
-//             .catch( err => {
-//                 dispatch(postTextFail(err));
-//             } );
-//     };
-// };
+
+export const fetchErrorWords = () => {
+    return {
+        type: actionTypes.FETCH_ERROR_LIST ,
+
+    }
+}
+export const FetchErrorListSuccess = (errorList) => {
+    return {
+        type: actionTypes.FETCH_ERROR_LIST_SUCCESS,
+        errorList: errorList 
+    }
+}
+
+export const ErorrList = (text) => {
+    return dispatch => {
+        dispatch(fetchErrorWords());
+        let  bodyFormData = new FormData();
+        bodyFormData.set('the_post' , text )
+        axios({
+        method: 'post',
+        url: 'http://test.dhad.me/spellcheck/postajax/',
+        data: bodyFormData,
+        config: { headers: {'Content-Type': 'multipart/form-data' }}
+        })
+        .then(res => {
+            console.log(res.data.raw_errList);
+            const list = [];
+            for (let key in res.data.raw_errList ) {
+                list.push(
+                    {
+                     ...res.data.raw_errList   
+                    }
+                );
+            }
+            dispatch(FetchErrorListSuccess(list));
+            console.log(" error list " , list);
+        })
+        .catch(function (response) {
+            //handle error
+            console.log(response);
+        });
+       
+    };
+};

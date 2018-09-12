@@ -4,7 +4,8 @@ export const  POST_TEXT_SART    = 'POST_TEXT_SART';
 export const  POST_TEXT_SUCCESS = 'POST_TEXT_SUCCESS';
 export const  POST_TEXT_FAIL    = 'POST_TEXT_FAIL';
 
-
+export const FETCH_ERROR_LIST = 'FETCH_ERROR_LIST';
+export const FETCH_ERROR_LIST_SUCCESS = 'FETCH_ERROR_LIST_SUCCESS'
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';

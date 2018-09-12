@@ -16,34 +16,20 @@ class Editor  extends Component {
   }
 
   handleChange(event) {
-     //console.log(event.target.value);
+     
+    //  this.setState({
+    //    value: event.target.value 
+    //  });
      this.props.onChangeText(event.target.value);
-     this.setState({
-       value: event.target.value 
-     });
-     let  bodyFormData = new FormData();
-     let curret = this.props.text ;
-     bodyFormData.set('the_post' ,  this.props.text )
-     axios({
-       method: 'post',
-       url: 'http://test.dhad.me/spellcheck/postajax/',
-       data: bodyFormData,
-       config: { headers: {'Content-Type': 'multipart/form-data' }}
-       })
-       .then(res => {
-           console.log(res.data.raw_errList);
-     })
-       .catch(function (response) {
-           //handle error
-           console.log(response);
-       });
+     this.props.onSpellCheck(this.props.text)
+   
      
   }
   
   componentWillMount() {
      
      this.props.onStart();
-     this.props.onChangeText(this.state.value);
+   
   }
   componentDidMount() {
     
@@ -58,7 +44,7 @@ class Editor  extends Component {
              <Input.TextArea
               className="my-text" 
               size="large"
-              value={this.state.value}
+              value={this.props.text}
               placeholder="start typing now "
               onChange={this.handleChange}
               rows={20}
@@ -72,15 +58,16 @@ class Editor  extends Component {
 
 const mapStateToProps = state => {
     return {
-        text: state.edi.text 
+        text: state.edi.text ,
+        errorlist: state.edi.errorlist 
     };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
       onStart: () => dispatch(actionCreators.start()),
-      onChangeText: (value)   => dispatch(actionCreators.TextChange(value)) 
-      
+      onChangeText: (value)   => dispatch(actionCreators.TextChange(value)),
+      onSpellCheck: (word)    => dispatch(actionCreators.ErorrList(word))
   }
 };
 

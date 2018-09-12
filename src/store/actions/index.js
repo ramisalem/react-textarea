@@ -1,7 +1,7 @@
 export {
     start,
     TextChange , 
-    postText
+    ErorrList
 } from './editor';
 export {
     auth,
