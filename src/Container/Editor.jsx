@@ -3,7 +3,6 @@ import '../App.css';
 import { connect } from 'react-redux';
 import { Input } from 'antd';
 import * as actionCreators from '../store/actions/index';
-import axios from 'axios';
 
 class Editor  extends Component {
   constructor(props) {
@@ -14,7 +13,7 @@ class Editor  extends Component {
 
   handleChange(event) {
      this.props.onChangeText(event.target.value);
-     this.props.onSpellCheck(this.props.text);
+     this.props.onSpellCheck(event.target.value);
      const StringToArray = this.props.text.split(' ');
      const highlight = StringToArray.filter( (x) => this.props.wrongWords.includes(x));
      console.log(' worong Wrods in the state  ' , highlight);
@@ -39,8 +38,7 @@ class Editor  extends Component {
               cols={80}
              
              /> 
-             <h1> sds</h1>
-            <div id='fake_textarea' contenteditable></div>
+            
       </form>   
     </div>
     );
