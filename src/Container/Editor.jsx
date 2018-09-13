@@ -8,48 +8,39 @@ import axios from 'axios';
 class Editor  extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: '' ,
-     
-    };
+    
     this.handleChange = this.handleChange.bind(this);
   }
 
   handleChange(event) {
-     
-    //  this.setState({
-    //    value: event.target.value 
-    //  });
      this.props.onChangeText(event.target.value);
-     this.props.onSpellCheck(this.props.text)
-   
-     
+     this.props.onSpellCheck(this.props.text);
+     const StringToArray = this.props.text.split(' ');
+     const highlight = StringToArray.filter( (x) => this.props.wrongWords.includes(x));
+     console.log(' worong Wrods in the state  ' , highlight);
   }
   
   componentWillMount() {
-     
      this.props.onStart();
-   
-  }
-  componentDidMount() {
-    
-      
   }
   
   render() {
-    
+       let val = this.props.text ;
     return (
       <div className="cont"> 
       <form>
              <Input.TextArea
               className="my-text" 
               size="large"
-              value={this.props.text}
+              value={val}
               placeholder="start typing now "
               onChange={this.handleChange}
               rows={20}
               cols={80}
+             
              /> 
+             <h1> sds</h1>
+            <div id='fake_textarea' contenteditable></div>
       </form>   
     </div>
     );
@@ -59,7 +50,8 @@ class Editor  extends Component {
 const mapStateToProps = state => {
     return {
         text: state.edi.text ,
-        errorlist: state.edi.errorlist 
+        wrongWords: state.edi.highlightWords
+        
     };
 };
 
@@ -67,7 +59,8 @@ const mapDispatchToProps = dispatch => {
   return {
       onStart: () => dispatch(actionCreators.start()),
       onChangeText: (value)   => dispatch(actionCreators.TextChange(value)),
-      onSpellCheck: (word)    => dispatch(actionCreators.ErorrList(word))
+      onSpellCheck: (word)    => dispatch(actionCreators.ErorrList(word)),
+      
   }
 };
 
