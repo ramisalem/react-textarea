@@ -23,8 +23,7 @@ class Editor  extends Component {
   
   render() {
 
-         console.log('dfdfdsfdgdf', this.props.wrongWords);
-      
+         let lisWrongWords = this.props.wrongWords ? this.props.wrongWords : [] ;
     return (
       <div className="cont"> 
       <form>
@@ -42,7 +41,7 @@ class Editor  extends Component {
       </form>   
        <div className="wrong-words">
             <h1> Worng words </h1>
-            {this.props.wrongWords.map( (word) => {
+            {lisWrongWords.map( (word) => {
               return <ul> <li>{word}</li></ul>
             })}
         </div>
