@@ -27,12 +27,7 @@ export const postTextSuccess = (value) => {
 
 
 
-export const fetchErrorWords = () => {
-    return {
-        type: actionTypes.FETCH_ERROR_LIST ,
 
-    }
-}
 export const FetchErrorListSuccess = (errorList) => {
     return {
         type: actionTypes.FETCH_ERROR_LIST_SUCCESS,
@@ -40,16 +35,10 @@ export const FetchErrorListSuccess = (errorList) => {
     }
 }
 
-export const highlightWords = (wrongWords) => {
-    return {
-        type: actionTypes.HIGHLIGHT_WORDS ,
-        wrongWords: wrongWords 
-    }
-}
 
-export const ErorrList = (text)  => {
+
+export const ErorrWordsList = (text)  => {
     return dispatch => {
-       // dispatch(TextChange());
         let  bodyFormData = new FormData();
         bodyFormData.set('the_post' , text )
         axios({
@@ -60,12 +49,9 @@ export const ErorrList = (text)  => {
         })
         .then(res => {
             //console.log(res.data.raw_errList);
-            const list = res.data.raw_errList ;
-            console.log(" error list " , list);
-            let  wrongWords = text.split(' ').filter((x) => list.includes(x));
-            console.log( 'check if it ' , wrongWords ); 
-            dispatch(FetchErrorListSuccess(list));
-            dispatch(highlightWords(wrongWords));
+            const ErrorWordsList = res.data.raw_errList ;
+            console.log(" error list " , ErrorWordsList);
+            dispatch(FetchErrorListSuccess(ErrorWordsList));
             
         })
         .catch(function (response) {

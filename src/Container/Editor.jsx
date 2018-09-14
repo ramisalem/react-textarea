@@ -14,9 +14,7 @@ class Editor  extends Component {
   handleChange(event) {
      this.props.onChangeText(event.target.value);
      this.props.onSpellCheck(event.target.value);
-     const StringToArray = this.props.text.split(' ');
-     const highlight = StringToArray.filter( (x) => this.props.wrongWords.includes(x));
-     console.log(' worong Wrods in the state  ' , highlight);
+     
   }
   
   componentWillMount() {
@@ -24,14 +22,16 @@ class Editor  extends Component {
   }
   
   render() {
-       let val = this.props.text ;
+
+         console.log('dfdfdsfdgdf', this.props.wrongWords);
+      
     return (
       <div className="cont"> 
       <form>
              <Input.TextArea
               className="my-text" 
               size="large"
-              value={val}
+              value={this.props.text}
               placeholder="start typing now "
               onChange={this.handleChange}
               rows={20}
@@ -40,6 +40,12 @@ class Editor  extends Component {
              /> 
             
       </form>   
+       <div className="wrong-words">
+            <h1> Worng words </h1>
+            {this.props.wrongWords.map( (word) => {
+              return <ul> <li>{word}</li></ul>
+            })}
+        </div>
     </div>
     );
   }
@@ -48,7 +54,7 @@ class Editor  extends Component {
 const mapStateToProps = state => {
     return {
         text: state.edi.text ,
-        wrongWords: state.edi.highlightWords
+        wrongWords: state.edi.errorWordslist 
         
     };
 };
@@ -57,7 +63,7 @@ const mapDispatchToProps = dispatch => {
   return {
       onStart: () => dispatch(actionCreators.start()),
       onChangeText: (value)   => dispatch(actionCreators.TextChange(value)),
-      onSpellCheck: (word)    => dispatch(actionCreators.ErorrList(word)),
+      onSpellCheck: (word)    => dispatch(actionCreators.ErorrWordsList(word)),
       
   }
 };

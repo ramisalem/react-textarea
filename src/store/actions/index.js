@@ -1,8 +1,8 @@
 export {
     start,
     TextChange , 
-    ErorrList , 
-    highlightWords
+    ErorrWordsList , 
+    
 } from './editor';
 export {
     auth,
