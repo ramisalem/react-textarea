@@ -22,8 +22,20 @@ class Editor  extends Component {
   }
   
   render() {
-
-         let lisWrongWords = this.props.wrongWords ? this.props.wrongWords : [] ;
+        // list of the wrong words  
+        let lisWrongWords = this.props.wrongWords ? this.props.wrongWords : [] ;
+         
+         
+         let correctionsWords = this.props.correctionsList ? this.props.correctionsList : [] ;
+         // coverting the object into an array with it is values 
+         let list = [];
+          for( let key in correctionsWords  ){
+           list.push({
+             id: key ,
+             value: correctionsWords[key]
+           })
+          }
+           
     return (
       <div className="cont"> 
       <form>
@@ -44,6 +56,7 @@ class Editor  extends Component {
             {lisWrongWords.map( (word) => {
               return <ul> <li>{word}</li></ul>
             })}
+           
         </div>
     </div>
     );
@@ -53,7 +66,8 @@ class Editor  extends Component {
 const mapStateToProps = state => {
     return {
         text: state.edi.text ,
-        wrongWords: state.edi.errorWordslist 
+        wrongWords: state.edi.errorWordslist,
+        correctionsList: state.edi.correctionsList 
         
     };
 };

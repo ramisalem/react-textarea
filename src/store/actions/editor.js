@@ -28,6 +28,13 @@ export const postTextSuccess = (value) => {
 
 
 
+export const FetchCorrectionList = (corrections) => {
+    return {
+        type: actionTypes.CORRECIONS_LIST,
+        corrections: corrections 
+    }
+}
+
 export const FetchErrorListSuccess = (errorList) => {
     return {
         type: actionTypes.FETCH_ERROR_LIST_SUCCESS,
@@ -50,8 +57,17 @@ export const ErorrWordsList = (text)  => {
         .then(res => {
             //console.log(res.data.raw_errList);
             const ErrorWordsList = res.data.raw_errList ;
+            const correctionList = res.data.raw_correctionsList ;
+            console.log(" error list " , correctionList);
             console.log(" error list " , ErrorWordsList);
+            const correctWords = {} ;
+            for ( let ElementIdentifier in correctionList ) {
+                correctWords[ElementIdentifier] = correctionList[ElementIdentifier].value  ;
+            }
+            console.log("corrct WOrd" , correctWords )
+            dispatch(FetchCorrectionList(correctionList));
             dispatch(FetchErrorListSuccess(ErrorWordsList));
+            
             
         })
         .catch(function (response) {

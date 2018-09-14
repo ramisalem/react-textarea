@@ -6,7 +6,10 @@ export const  POST_TEXT_FAIL    = 'POST_TEXT_FAIL';
 
 export const FETCH_ERROR_LIST = 'FETCH_ERROR_LIST';
 export const FETCH_ERROR_LIST_SUCCESS = 'FETCH_ERROR_LIST_SUCCESS';
-export const HIGHLIGHT_WORDS  = 'HIGHLIGHT_WORDS';
+
+export const CORRECIONS_LIST  = 'CORRECIONS_LIST';
+
+
 
 export const AUTH_START = 'AUTH_START';
 export const AUTH_SUCCESS = 'AUTH_SUCCESS';
